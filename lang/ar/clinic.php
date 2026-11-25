@@ -1,0 +1,65 @@
+<?php
+
+return [
+    'app' => 'نظام العيادات والمراكز الطبية',
+    'roles' => ['manager' => 'مدير المركز', 'reception' => 'الاستقبال', 'doctor' => 'طبيب', 'nurse' => 'ممرض', 'pharmacist' => 'صيدلي', 'accountant' => 'محاسب', 'patient' => 'مريض'],
+    'status' => ['scheduled' => 'مجدول', 'confirmed' => 'مؤكد', 'checked_in' => 'في الانتظار', 'in_progress' => 'جارٍ الكشف', 'completed' => 'مكتمل', 'cancelled' => 'ملغي', 'no_show' => 'لم يحضر'],
+    'visit' => ['consultation' => 'كشف', 'follow_up' => 'متابعة', 'lab_procedure' => 'تحاليل / إجراء'],
+    'nav' => ['dashboard' => 'لوحة المتابعة', 'appointments' => 'المواعيد', 'patients' => 'المرضى', 'doctors' => 'الأطباء والموظفون', 'billing' => 'الفواتير والتأمين', 'inventory' => 'المخزون / الصيدلية', 'settings' => 'الإعدادات', 'lab' => 'المعمل والأشعة'],
+    'ui' => [
+        'search' => 'ابحث بالاسم أو الهاتف أو رقم الملف', 'new_appointment' => 'موعد جديد', 'logout' => 'تسجيل الخروج',
+        'branch' => 'الفرع', 'language' => 'English', 'today' => 'اليوم', 'all' => 'الكل', 'doctor' => 'الطبيب', 'status' => 'الحالة',
+        'patient' => 'المريض', 'token' => 'الدور', 'time' => 'الموعد', 'department' => 'القسم', 'type' => 'نوع الزيارة', 'actions' => 'إجراءات',
+        'check_in' => 'تسجيل حضور', 'start_visit' => 'بدء الكشف', 'complete' => 'إنهاء وفوترة', 'reschedule' => 'تأجيل', 'cancel' => 'إلغاء',
+        'save' => 'حفظ', 'close' => 'إغلاق', 'back' => 'رجوع', 'next' => 'التالي', 'prev' => 'السابق', 'empty' => 'لا توجد بيانات',
+        'next_patient' => 'المريض الحالي / التالي', 'waiting_queue' => 'قائمة الانتظار', 'no_active' => 'لا يوجد مريض في الانتظار',
+        'age' => 'العمر', 'years' => 'سنة', 'last_visit' => 'آخر زيارة', 'complaint' => 'الشكوى', 'allergy' => 'حساسية', 'chronic' => 'أمراض مزمنة',
+        'prescription' => 'روشتة', 'phone' => 'الهاتف', 'file' => 'رقم الملف', 'insurance' => 'التأمين', 'schedule' => 'جدول اليوم',
+        'login' => 'تسجيل الدخول', 'email' => 'البريد الإلكتروني', 'password' => 'كلمة المرور', 'remember' => 'تذكرني',
+        'collect' => 'تحصيل', 'amount' => 'المبلغ', 'method' => 'طريقة الدفع', 'cash' => 'نقدًا', 'card' => 'بطاقة', 'insurance_m' => 'تأمين',
+        'invoice' => 'فاتورة', 'total' => 'الإجمالي', 'paid' => 'المدفوع', 'balance' => 'المتبقي', 'active' => 'نشط', 'inactive' => 'معطّل',
+        'commission' => 'نسبة الطبيب', 'today_visits' => 'كشوفات اليوم', 'qty' => 'الكمية', 'expiry' => 'الصلاحية', 'expired' => 'منتهي', 'expiring' => 'قرب الانتهاء', 'low' => 'مخزون منخفض', 'ok' => 'سليم',
+        'branches' => 'الفروع', 'staff' => 'الموظفون', 'role' => 'الدور', 'name' => 'الاسم', 'notifications' => 'الإشعارات', 'skip' => 'تخطي إلى المحتوى',
+        'live_preview' => 'معاينة فورية', 'pick_slot' => 'اختر الوقت المتاح', 'no_slots' => 'اختر الطبيب والتاريخ لعرض المواعيد', 'search_patient' => 'ابحث عن المريض',
+        'history' => 'التاريخ المرضي والروشتات', 'overview' => 'نظرة عامة والعلامات الحيوية', 'invoices' => 'الفواتير', 'diagnosis' => 'التشخيص',
+        'no_vitals' => 'لا توجد علامات حيوية مسجلة', 'vitals' => 'العلامات الحيوية', 'bp' => 'الضغط', 'hr' => 'النبض', 'temp' => 'الحرارة', 'weight' => 'الوزن',
+        'print' => 'طباعة', 'issue' => 'إصدار الروشتة', 'add_line' => 'إضافة دواء', 'notes' => 'ملاحظات', 'ack' => 'أؤكد مراجعة الحساسية وأرغب في المتابعة',
+        'confirm_title' => 'هل أنت متأكد؟', 'yes' => 'نعم، تابع', 'no' => 'تراجع', 'hint_date' => 'لا يمكن الحجز في تاريخ سابق', 'hint_slot' => 'الأوقات الرمادية محجوزة أو انتهت',
+        'wait_trend' => 'مباشر', 'vs_yesterday' => 'مقارنة بالأمس',
+        'chart' => 'ملف الزيارة', 'tab_vitals' => 'العلامات الحيوية', 'tab_diagnosis' => 'التشخيص', 'tab_lab' => 'تحاليل وأشعة', 'systolic' => 'الانقباضي', 'diastolic' => 'الانبساطي', 'bpm' => 'النبض (ن/د)', 'temp_c' => 'الحرارة (°م)', 'weight_kg' => 'الوزن (كجم)', 'icd' => 'كود ICD-10', 'clin_notes' => 'ملاحظات سريرية', 'lab' => 'تحليل', 'radiology' => 'أشعة', 'test_name' => 'اسم الفحص', 'request_lab' => 'طلب فحص', 'result' => 'النتيجة', 'attachment' => 'مرفق (PDF / صورة)', 'download' => 'تحميل', 'record_result' => 'تسجيل النتيجة', 'requested' => 'مطلوب', 'resulted' => 'تم الرد', 'recent' => 'آخر القراءات', 'saved_records' => 'تشخيصات هذه الزيارة', 'visit_labs' => 'فحوصات هذه الزيارة',
+    ],
+    'kpi' => ['appointments' => 'مواعيد اليوم', 'waiting' => 'في غرفة الانتظار', 'revenue' => 'تحصيل اليوم', 'no_show' => 'نسبة الغياب والإلغاء', 'checked' => 'حضروا', 'pending' => 'بانتظار الحضور', 'currency' => 'ج.م'],
+    'rx' => ['medicine' => 'الدواء', 'dose' => 'الجرعة', 'frequency' => 'التكرار', 'days' => 'عدد الأيام', 'instructions' => 'تعليمات', 'title' => 'روشتة طبية', 'signature' => 'توقيع الطبيب', 'alert' => 'تنبيه حساسية دوائية: :names'],
+    'confirm' => ['cancel' => 'سيتم إلغاء هذا الموعد وإتاحة الوقت لمريض آخر.', 'complete' => 'سيتم إنهاء الزيارة وإصدار الفاتورة وخصم المستلزمات.', 'toggle' => 'تغيير حالة التفعيل؟'],
+    'toast' => ['checked_in' => 'تم تسجيل حضور المريض', 'completed' => 'تم إنهاء الزيارة وإصدار الفاتورة :no', 'cancelled' => 'تم إلغاء الموعد', 'rescheduled' => 'تم تأجيل الموعد', 'booked' => 'تم حجز الموعد بنجاح', 'rx_issued' => 'تم إصدار الروشتة', 'paid' => 'تم تسجيل الدفعة', 'saved' => 'تم الحفظ', 'vitals_saved' => 'تم حفظ العلامات الحيوية', 'diagnosis_saved' => 'تم حفظ التشخيص', 'lab_requested' => 'تم إرسال طلب الفحص', 'lab_resulted' => 'تم تسجيل النتيجة'],
+    'errors' => [
+        'slot_taken' => 'موعد الطبيب محجوز في هذا الوقت',
+        'doctor_inactive' => 'هذا الطبيب غير متاح للحجز حاليًا',
+        'bad_transition' => 'لا يمكن تنفيذ هذا الإجراء على حالة الموعد الحالية',
+        'bad_amount' => 'المبلغ أكبر من المتبقي أو غير صالح',
+        'low_stock' => 'الكمية غير كافية في المخزون: :item',
+        'allergy' => 'تنبيه: يوجد تعارض مع حساسية المريض (:names). أكّد المراجعة للمتابعة.',
+        'login' => 'بيانات الدخول غير صحيحة أو الحساب معطّل',
+        'visit_closed' => 'الزيارة مغلقة، لا يمكن التعديل عليها',
+        'vitals_empty' => 'أدخل قراءة واحدة على الأقل',
+        'result_empty' => 'اكتب النتيجة أو أرفق ملفًا',
+    ],
+    'reminder' => 'تذكير: موعدك مع د. :doctor يوم :date الساعة :time. ننتظرك — :name',
+    'attributes' => ['patient_id' => 'المريض', 'doctor_id' => 'الطبيب', 'appointment_date' => 'تاريخ الموعد', 'start_time' => 'وقت الموعد', 'visit_type' => 'نوع الزيارة', 'chief_complaint' => 'الشكوى'],
+    'validation' => [
+        'patient_id.required' => 'اختر المريض أولًا',
+        'doctor_id.required' => 'اختر الطبيب',
+        'appointment_date.required' => 'حدد تاريخ الموعد',
+        'appointment_date.after_or_equal' => 'لا يمكن الحجز في تاريخ سابق',
+        'start_time.required' => 'اختر وقتًا متاحًا',
+        'visit_type.required' => 'حدد نوع الزيارة',
+    ],
+];
+
+/*
+SYSTEM DESIGN:
+Central translation file (Rule 25/26): no hard-coded strings in code or views. Same key tree exists in lang/en/clinic.php.
+
+DATA STRUCTURE:
+Nested associative array: dot-notation lookup __('clinic.status.completed').
+*/

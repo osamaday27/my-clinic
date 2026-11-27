@@ -1,6 +1,11 @@
 <div class="stack-lg">
     <div class="page-h"><div><h1>{{ __('clinic.nav.patients') }}</h1></div>
-        <input class="input" style="width:280px" type="search" wire:model.live.debounce.300ms="search" placeholder="{{ __('clinic.ui.search') }}" aria-label="{{ __('clinic.ui.search') }}"></div>
+        <div class="row">
+            <input class="input" style="width:280px" type="search" wire:model.live.debounce.300ms="search" placeholder="{{ __('clinic.ui.search') }}" aria-label="{{ __('clinic.ui.search') }}">
+            @can('create', \App\Models\Patient::class)
+                <button class="btn btn--primary" type="button" @click="Livewire.dispatch('open-patient-form')"><span class="ms">person_add</span>{{ __('clinic.ui.new_patient') }}</button>
+            @endcan
+        </div></div>
     <section class="card">
         <div class="tablewrap"><table>
             <thead><tr><th>{{ __('clinic.ui.file') }}</th><th>{{ __('clinic.ui.name') }}</th><th>{{ __('clinic.ui.phone') }}</th><th>{{ __('clinic.ui.age') }}</th><th>{{ __('clinic.ui.insurance') }}</th><th></th></tr></thead>

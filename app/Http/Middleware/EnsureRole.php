@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Middleware;
 
+use App\Enums\Role;
 use Closure;
 use Illuminate\Http\Request;
 
@@ -16,7 +17,12 @@ class EnsureRole
             $request->session()->invalidate();
             abort(403);
         }
-        abort_unless(in_array($user->role->value, $roles, true), 403);
+        if (! in_array($user->role->value, $roles, true)) {
+            if ($user->role === Role::Patient) {
+                return redirect()->route('portal');         // patients never see staff pages (not even a 403)
+            }
+            abort(403);
+        }
 
         return $next($request);
     }

@@ -66,6 +66,7 @@ class AppointmentService
             }
 
             [$start, $end] = $this->window($doctor, $data['start_time']);
+            $this->assertBookable($doctor, $data['appointment_date'], $start, $end);
             $this->guard($doctor->id, $data['appointment_date'], $start, $end);
 
             return Appointment::create([
@@ -94,6 +95,7 @@ class AppointmentService
             }
 
             [$start, $end] = $this->window($doctor, $time);
+            $this->assertBookable($doctor, $date, $start, $end);
             $this->guard($doctor->id, $date, $start, $end, $a->id);
             $a->update(['appointment_date' => $date, 'start_time' => $start, 'end_time' => $end]);
 
@@ -130,6 +132,18 @@ class AppointmentService
             ->when($filters['status'] ?? null, fn ($q, $v) => $q->where('status', $v))
             ->orderBy('start_time')
             ->get();
+    }
+
+    /** Server-side truth: inside the doctor's working hours and not in the past (never trust the slot grid shown in the browser). */
+    private function assertBookable(Doctor $doctor, string $date, string $start, string $end): void
+    {
+        $h = $doctor->working_hours ?: config('clinic.working_hours');
+        if ($start < $h['start'].':00' || $end > $h['end'].':00') {
+            throw ValidationException::withMessages(['start_time' => __('clinic.errors.outside_hours')]);
+        }
+        if (Carbon::parse("$date $start")->isPast()) {
+            throw ValidationException::withMessages(['start_time' => __('clinic.errors.slot_past')]);
+        }
     }
 
     private function window(Doctor $doctor, string $time): array

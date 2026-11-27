@@ -3,6 +3,7 @@ namespace App\Livewire\Pages;
 
 use App\Models\Patient;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -11,6 +12,12 @@ class PatientsPage extends Component
     use WithPagination;
 
     public string $search = '';
+
+    #[On('patient-saved')]
+    public function refresh(): void
+    {
+        unset($this->patients);
+    }
 
     public function updatingSearch(): void
     {

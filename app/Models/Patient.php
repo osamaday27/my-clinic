@@ -14,7 +14,7 @@ class Patient extends Model
 
     protected $fillable = [
         'file_number', 'name_ar', 'name_en', 'phone', 'national_id', 'birth_date', 'gender',
-        'allergies', 'chronic_conditions', 'insurance_company', 'insurance_number',
+        'allergies', 'chronic_conditions', 'insurance_company', 'insurance_company_id', 'insurance_number',
     ];
 
     protected function casts(): array
@@ -34,6 +34,8 @@ class Patient extends Model
     public function prescriptions(): HasMany { return $this->hasMany(Prescription::class); }
     public function invoices(): HasMany { return $this->hasMany(Invoice::class); }
     public function labRequests(): HasMany { return $this->hasMany(LabRequest::class); }
+    public function portalUser(): \Illuminate\Database\Eloquent\Relations\HasOne { return $this->hasOne(User::class, 'patient_id'); }
+    public function insuranceCompany(): \Illuminate\Database\Eloquent\Relations\BelongsTo { return $this->belongsTo(InsuranceCompany::class); }
 
     public function getAgeAttribute(): ?int
     {

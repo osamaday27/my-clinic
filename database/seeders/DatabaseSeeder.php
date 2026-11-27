@@ -7,6 +7,7 @@ use App\Models\Appointment;
 use App\Models\Branch;
 use App\Models\Clinic;
 use App\Models\Doctor;
+use App\Models\InsuranceCompany;
 use App\Models\Invoice;
 use App\Models\LabRequest;
 use App\Models\MedicalRecord;
@@ -66,6 +67,9 @@ class DatabaseSeeder extends Seeder
                 Medicine::create(['name_ar' => $ar, 'name_en' => $en, 'generic_name' => $gen, 'form' => $form, 'strength' => $str]);
             }
 
+            $co1 = InsuranceCompany::create(['name_ar' => 'مصر للتأمين', 'name_en' => 'Misr Insurance', 'coverage_percent' => 80]);
+            InsuranceCompany::create(['name_ar' => 'أليانز', 'name_en' => 'Allianz', 'coverage_percent' => 70]);
+
             $names = ['محمد علي', 'أحمد حسن', 'فاطمة محمود', 'نور الهدى', 'يوسف إبراهيم', 'مريم عادل', 'عمر خالد', 'هدى سمير', 'كريم مصطفى', 'ليلى حسين', 'إسراء رضا', 'مصطفى كمال',
                 'سلمى وائل', 'حسام الدين', 'دعاء عبد الرحمن', 'زياد ناصر', 'آية سعيد', 'بلال فتحي', 'رنا ياسر', 'عبد الله رمضان', 'جميلة صبري', 'إياد منصور', 'ندى أشرف', 'مروان عاطف'];
             $patients = collect($names)->map(fn ($n, $i) => Patient::create([
@@ -77,8 +81,12 @@ class DatabaseSeeder extends Seeder
                 'allergies' => $i % 5 === 0 ? 'Penicillin, Sulfa' : null,
                 'chronic_conditions' => $i % 7 === 0 ? 'السكر - ضغط' : null,
                 'insurance_company' => $i % 4 === 0 ? 'Misr Insurance' : null,
+                'insurance_company_id' => $i % 4 === 0 ? $co1->id : null,
                 'insurance_number' => $i % 4 === 0 ? 'MI-'.(9000 + $i) : null,
             ]));
+
+            $portal = User::create(['name' => 'مريض البوابة', 'email' => 'patient@clinic.test', 'password' => $pwd, 'role' => Role::Patient->value, 'is_active' => true]);
+            $portal->forceFill(['patient_id' => $patients[1]->id])->save();
 
             foreach ($patients->take(6) as $i => $p) {
                 Vital::create(['patient_id' => $p->id, 'bp_systolic' => 118 + $i, 'bp_diastolic' => 76, 'heart_rate' => 72 + $i, 'temperature' => 36.8, 'spo2' => 98, 'weight' => 70 + $i]);

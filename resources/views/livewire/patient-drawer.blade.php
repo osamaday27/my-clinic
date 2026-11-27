@@ -8,6 +8,12 @@
                 <div class="sub num">{{ $p->file_number }} · {{ $p->age ?? '—' }} {{ __('clinic.ui.years') }} · {{ $p->phone }}</div>
             </div>
             <div class="row">
+                @can('managePortal', $p)
+                    <button class="btn btn--sm" wire:click="$dispatch('open-portal-account', { id: {{ $p->id }} })" aria-label="{{ __('clinic.ui.portal_account') }}" title="{{ __('clinic.ui.portal_account') }}"><span class="ms">key</span></button>
+                @endcan
+                @can('update', $p)
+                    <button class="btn btn--sm" wire:click="$dispatch('open-patient-form', { id: {{ $p->id }} })" aria-label="edit"><span class="ms">edit</span></button>
+                @endcan
                 @can('create', \App\Models\Appointment::class)
                     <button class="btn btn--sm btn--primary" wire:click="$dispatch('open-new-appointment', { patientId: {{ $p->id }} })"><span class="ms">add</span></button>
                 @endcan

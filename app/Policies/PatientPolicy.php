@@ -12,6 +12,21 @@ class PatientPolicy
         return $u->hasRole(Role::Manager, Role::Reception, Role::Doctor, Role::Nurse);
     }
 
+    public function create(User $u): bool
+    {
+        return $u->hasRole(Role::Manager, Role::Reception);
+    }
+
+    public function managePortal(User $u, Patient $p): bool
+    {
+        return $u->hasRole(Role::Manager, Role::Reception);
+    }
+
+    public function update(User $u, Patient $p): bool
+    {
+        return $u->hasRole(Role::Manager, Role::Reception, Role::Nurse);
+    }
+
     public function view(User $u, Patient $p): bool
     {
         if ($u->hasRole(Role::Manager, Role::Reception, Role::Nurse, Role::Accountant)) {

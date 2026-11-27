@@ -15,7 +15,7 @@ class User extends Authenticatable
 
     protected $fillable = ['name', 'email', 'password', 'role', 'branch_id', 'phone', 'is_active'];
 
-    protected $hidden = ['password', 'remember_token'];
+    protected $hidden = ['password', 'remember_token', 'two_factor_secret', 'two_factor_recovery_codes'];
 
     protected function casts(): array
     {
@@ -24,6 +24,10 @@ class User extends Authenticatable
             'password' => 'hashed',
             'role' => Role::class,
             'is_active' => 'boolean',
+            'must_change_password' => 'boolean',
+            'two_factor_secret' => 'encrypted',
+            'two_factor_recovery_codes' => 'encrypted:array',
+            'two_factor_confirmed_at' => 'datetime',
         ];
     }
 
@@ -35,6 +39,21 @@ class User extends Authenticatable
     public function doctor(): HasOne
     {
         return $this->hasOne(Doctor::class);
+    }
+
+    public function patient(): BelongsTo
+    {
+        return $this->belongsTo(Patient::class);
+    }
+
+    public function homeUrl(): string
+    {
+        return $this->role === Role::Patient ? route('portal') : '/';
+    }
+
+    public function hasTwoFactor(): bool
+    {
+        return $this->two_factor_confirmed_at !== null && filled($this->two_factor_secret);
     }
 
     public function hasRole(Role ...$roles): bool

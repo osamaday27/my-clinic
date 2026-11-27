@@ -10,6 +10,7 @@
         ['patients', 'patients', 'groups', ['manager', 'reception', 'doctor', 'nurse']],
         ['doctors', 'doctors', 'stethoscope', ['manager', 'reception']],
         ['billing', 'billing', 'receipt_long', ['manager', 'reception', 'accountant']],
+        ['insurance', 'insurance', 'verified_user', ['manager', 'reception', 'accountant']],
         ['lab', 'lab', 'biotech', ['manager', 'doctor', 'nurse']],
         ['inventory', 'inventory', 'medication', ['manager', 'pharmacist', 'nurse']],
         ['settings', 'settings', 'settings', ['manager']],
@@ -88,10 +89,10 @@
                 <span class="ms">notifications</span>
                 @if ($alerts > 0)<span class="badge-dot num">{{ $alerts }}</span>@endif
             </a>
-            <div class="who">
+            <a class="who" href="{{ route('security') }}" title="{{ __('clinic.ui.security') }}">
                 <span class="avatar">{{ $user->initials() }}</span>
                 <span class="hide-m"><strong>{{ $user->name }}</strong><br><small>{{ $user->role->label() }}</small></span>
-            </div>
+            </a>
         </header>
 
         <main class="canvas" id="main">{{ $slot }}</main>
@@ -102,6 +103,8 @@
 <livewire:new-appointment />
 <livewire:prescription-builder />
 <livewire:visit-chart />
+<livewire:patient-form />
+<livewire:portal-account-modal />
 
 <div class="toasts" x-data="toasts()" @toast.window="push($event.detail.message)" aria-live="polite">
     <template x-for="t in list" :key="t.id"><div class="toast" x-text="t.m"></div></template>

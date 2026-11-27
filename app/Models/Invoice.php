@@ -20,6 +20,7 @@ class Invoice extends Model
     public function patient(): BelongsTo { return $this->belongsTo(Patient::class); }
     public function items(): HasMany { return $this->hasMany(InvoiceItem::class); }
     public function payments(): HasMany { return $this->hasMany(Payment::class); }
+    public function claim(): \Illuminate\Database\Eloquent\Relations\HasOne { return $this->hasOne(InsuranceClaim::class); }
 
     public function getBalanceAttribute(): string
     {

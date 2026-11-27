@@ -14,7 +14,7 @@ use Illuminate\Validation\ValidationException;
 
 class BillingService
 {
-    public function __construct(private AppointmentService $appointments, private AuditService $audit) {}
+    public function __construct(private AppointmentService $appointments, private AuditService $audit, private ClaimService $claims) {}
 
     /**
      * End-of-visit atomic unit of work (Rule 10): mark visit complete + create invoice + deduct stock + post commission.
@@ -23,7 +23,7 @@ class BillingService
     public function completeVisit(Appointment $a, array $items = [], float $discount = 0): Invoice
     {
         return DB::transaction(function () use ($a, $items, $discount) {
-            $a->loadMissing('patient', 'doctor');
+            $a->loadMissing('patient.insuranceCompany', 'doctor');
             $this->appointments->transition($a, AppointmentStatus::Completed);
 
             $items = $items ?: [[
@@ -34,8 +34,12 @@ class BillingService
             ]];
 
             $subtotal = round(collect($items)->sum(fn ($i) => $i['quantity'] * $i['unit_price']), 2);
-            $insurance = $a->patient->insurance_company
-                ? round($subtotal * config('clinic.insurance_coverage_percent') / 100, 2) : 0.0;
+            // Coverage comes from the patient's insurance company; legacy free-text insurance falls back to the config default.
+            $company = $a->patient->insuranceCompany;
+            $pct = $company && $company->is_active
+                ? (float) $company->coverage_percent
+                : ($a->patient->insurance_company ? (float) config('clinic.insurance_coverage_percent') : 0.0);
+            $insurance = round($subtotal * $pct / 100, 2);
             $total = max(0, round($subtotal - $discount - $insurance, 2));
 
             $invoice = Invoice::create([
@@ -66,6 +70,9 @@ class BillingService
             }
 
             $this->postCommission($invoice, $a);
+            if ($company && $company->is_active && $insurance > 0) {
+                $this->claims->openFor($invoice, $company, $a->patient);     // draft claim for the insurer
+            }
             $this->audit->log('invoice.created', $invoice);
 
             return $invoice;
